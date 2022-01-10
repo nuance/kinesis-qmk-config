@@ -1,0 +1,41 @@
+name: CI
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@master
+    - name: Install dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get -y install gcc unzip wget zip gcc-avr binutils-avr avr-libc dfu-programmer dfu-util gcc-arm-none-eabi binutils-arm-none-eabi libnewlib-arm-none-eabi git python3-pip
+    - name: Install qmk
+      run: |
+        python3 -m pip install --user qmk
+
+    - name: Setup qmk
+      run: |
+        qmk setup --yes
+
+    - name: Build layout
+      run: |
+        qmk compile kinesis.json
+        find ~ -name "*kinesis*"
+
+    - name: Upload artifact
+      uses: actions/upload-artifact@master
+      with:
+        name: kinesis.hex
+        path: kinesis.hex
+
+    - name: Release
+      uses: docker://softprops/action-gh-release
+      if: startsWith(github.ref, 'refs/tags/')
+      with:
+        files: kinesis.hex
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
