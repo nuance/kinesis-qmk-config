@@ -30,12 +30,12 @@ jobs:
       uses: actions/upload-artifact@master
       with:
         name: kinesis.hex
-        path: kinesis.hex
+        path: ~/qmk_firmware/kinesis_kint36_kinesis_kint36_layout_mine.hex
 
     - name: Release
       uses: docker://softprops/action-gh-release
       if: startsWith(github.ref, 'refs/tags/')
       with:
-        files: kinesis.hex
+        files: ~/qmk_firmware/kinesis_kint36_kinesis_kint36_layout_mine.hex
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
