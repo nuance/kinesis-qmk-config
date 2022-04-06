@@ -37,7 +37,7 @@ jobs:
       uses: actions/upload-artifact@master
       with:
         name: kinesis-41.hex
-        path: ~/qmk_firmware/kinesis_kint36_kinesis_kint41_layout_mine.hex
+        path: ~/qmk_firmware/kinesis_kint41_kinesis_kint41_layout_mine.hex
 
     - name: Release
       uses: docker://softprops/action-gh-release
