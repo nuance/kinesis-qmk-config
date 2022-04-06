@@ -21,6 +21,11 @@ jobs:
       run: |
         qmk setup --yes
 
+    - name: Generate variants
+      run: |
+        cp layout.json kinesis-kint36.json
+        cat layout.json | sed 's/36/41/g' > kinesis-kint41.json
+
     - name: Build layout
       run: |
         qmk compile kinesis-kint36.json
