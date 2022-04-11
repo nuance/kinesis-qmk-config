@@ -21,21 +21,35 @@ jobs:
       run: |
         qmk setup --yes
 
+    - name: Generate variants
+      run: |
+        cp layout.json kinesis-kint36.json
+        cat layout.json | sed 's/36/41/g' > kinesis-kint41.json
+
     - name: Build layout
       run: |
-        qmk compile kinesis.json
+        qmk compile kinesis-kint36.json
+        qmk compile kinesis-kint41.json
         find ~ -name "*kinesis*"
 
     - name: Upload artifact
       uses: actions/upload-artifact@master
       with:
-        name: kinesis.hex
+        name: kinesis-36.hex
         path: ~/qmk_firmware/kinesis_kint36_kinesis_kint36_layout_mine.hex
+
+    - name: Upload artifact
+      uses: actions/upload-artifact@master
+      with:
+        name: kinesis-41.hex
+        path: ~/qmk_firmware/kinesis_kint41_kinesis_kint41_layout_mine.hex
 
     - name: Release
       uses: docker://softprops/action-gh-release
       if: startsWith(github.ref, 'refs/tags/')
       with:
-        files: ~/qmk_firmware/kinesis_kint36_kinesis_kint36_layout_mine.hex
+        files: |
+          ~/qmk_firmware/kinesis_kint36_kinesis_kint36_layout_mine.hex
+          ~/qmk_firmware/kinesis_kint41_kinesis_kint41_layout_mine.hex
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
