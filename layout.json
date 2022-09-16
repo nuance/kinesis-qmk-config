@@ -46,7 +46,7 @@
       "KC_GRV",
       "KC_LCTL",
       "KC_LALT",
-      "KC_HOME",
+      "ANY(KC_MEH)",
       "KC_BSPC",
       "LCTL(KC_G)",
       "KC_LGUI",
@@ -89,7 +89,7 @@
       "KC_DOWN",
       "KC_RALT",
       "KC_RCTL",
-      "LALT(KC_X)",
+      "ANY(KC_MEH)",
       "KC_RGUI",
       "KC_ENT",
       "KC_SPC"
