@@ -32,6 +32,16 @@ jobs:
         qmk compile kinesis-kint41.json
         find ~ -name "*kinesis*"
 
+    - name: Freeze python versions
+      run: |
+        python3 -m pip freeze --user > ~/requirements.txt
+
+    - name: Record frozen python versions
+      uses: actions/upload-artifact@master
+      with:
+        name: requirements.txt
+        path: ~/requirements.txt
+
     - name: Upload artifact
       uses: actions/upload-artifact@master
       with:
