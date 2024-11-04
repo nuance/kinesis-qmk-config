@@ -15,7 +15,7 @@ jobs:
         sudo apt-get -y install gcc unzip wget zip gcc-avr binutils-avr avr-libc dfu-programmer dfu-util gcc-arm-none-eabi binutils-arm-none-eabi libnewlib-arm-none-eabi git python3-pip
     - name: Install qmk
       run: |
-        python3 -m pip install --user qmk
+        python3 -m pip install --user qmk==0.20.6
 
     - name: Setup qmk
       run: |
